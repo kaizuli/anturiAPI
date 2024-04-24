@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-from .models import TemperatureDB, TemperatureCreate
+from .schemas import TemperatureDB, TemperatureCreate
 from sqlmodel import Session
 
 def create_temp(session: Session, temp_in: TemperatureCreate):

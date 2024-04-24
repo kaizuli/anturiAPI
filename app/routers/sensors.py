@@ -1,8 +1,9 @@
-from fastapi import APIRouter, status, Depends
-from sqlmodel import Session
+from fastapi import APIRouter, status, Depends, HTTPException
+from sqlmodel import Session, select
 from ..database import sensor_crud
 from ..database.database import get_session
-from ..database.models import SensorBase, SensorDB, SensorCreate
+from ..database.schemas import SensorBase, SensorDB, SensorCreate, TemperatureDB
+from ..database.models import SensorWithTemperatures
 
 router = APIRouter(prefix='/sensors')
 
@@ -13,6 +14,29 @@ def get_sensors(*, session: Session = Depends(get_session)):
 @router.get('/{id}', response_model=SensorDB)
 def get_sensor(*, session: Session = Depends(get_session), id: int):
     return sensor_crud.get_sensor(session, id)
+
+@router.get('/{id}/temperatures', response_model=SensorWithTemperatures)
+def get_sensor_with_temps(*, session: Session = Depends(get_session), sensor_id: int, size: int = 10):
+    sensor = sensor_crud.get_sensor(session, sensor_id)
+    if not sensor:
+        raise HTTPException(status_code=404, detail=f'Sensor with id {sensor_id} not found.')
+        # filter between (time,time)
+    temperatures = session.exec(select(TemperatureDB)
+                                .filter_by(sensorid=sensor_id)
+                                .order_by(TemperatureDB.timestamp)
+                                .limit(size)
+                                ).all()
+    temperature_values = [temp.temp for temp in temperatures]
+    timestamps = [temp.timestamp for temp in temperatures]
+
+    sensor_with_temps = SensorWithTemperatures(
+        id=sensor.id,
+        section=sensor.section,
+        status=sensor.status,
+        temperatures=temperature_values,
+        timestamps=timestamps
+    )
+    return sensor_with_temps
 
 @router.post('/', status_code=status.HTTP_201_CREATED)
 def create_sensor(*, session: Session = Depends(get_session), sensor_in: SensorCreate):

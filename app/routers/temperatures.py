@@ -2,7 +2,7 @@ from fastapi import APIRouter, status, Depends
 from sqlmodel import Session
 from ..database import temperature_crud
 from ..database.database import get_session
-from ..database.models import TemperatureDB, TemperatureCreate
+from ..database.schemas import TemperatureDB, TemperatureCreate
 
 router = APIRouter(prefix='/temperatures')
 
