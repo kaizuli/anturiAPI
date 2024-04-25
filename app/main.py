@@ -1,6 +1,6 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
-from .routers import sensors, temperatures
+from .routers import management_sensors, data_view_sensors, temperatures
 from .database.database import create_db
 
 @asynccontextmanager
@@ -12,6 +12,6 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-app.include_router(sensors.router)
+app.include_router(management_sensors.router)
 app.include_router(temperatures.router)
-
+app.include_router(data_view_sensors.router)
