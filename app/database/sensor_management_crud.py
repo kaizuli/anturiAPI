@@ -8,9 +8,6 @@ def create_sensor(session: Session, sensor_in: SensorCreate):
     session.refresh(sensordb)
     return sensordb
 
-def get_sensor(session: Session, id: int):
-    return session.get(SensorDB, id)
-
 def update_sensor_status(session: Session, id: int, status: int):
     sensor = session.get(SensorDB, id)
     sensor.status = status
@@ -23,6 +20,4 @@ def update_sensor_section(session: Session, id: int, section: str):
     session.commit()
     return sensor
 
-# list sensor updates
 
-# list statuses

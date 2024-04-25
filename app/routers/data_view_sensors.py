@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status, Depends, HTTPException
 from sqlmodel import Session, select
-from ..database import sensor_management_crud, data_view_crud
+from ..database import data_view_crud
 from ..database.database import get_session
 from ..database.schemas import SensorDB, TemperatureDB
 from ..database.models import SensorWithTemperatures
@@ -13,7 +13,7 @@ def list_sensors(*, session: Session = Depends(get_session)):
 
 @router.get('/{id}/temperatures', response_model=SensorWithTemperatures)
 def get_sensor_with_temps(*, session: Session = Depends(get_session), sensor_id: int, size: int = 10):
-    sensor = sensor_management_crud.get_sensor(session, sensor_id)
+    sensor = data_view_crud.get_sensor(session, sensor_id)
     if not sensor:
         raise HTTPException(status_code=404, detail=f'Sensor with id {sensor_id} not found.')
         # filter between (time,time)
@@ -33,3 +33,7 @@ def get_sensor_with_temps(*, session: Session = Depends(get_session), sensor_id:
         timestamps=timestamps
     )
     return sensor_with_temps
+
+@router.get('/{status}', response_model=list[SensorDB])
+def list_sensors_by_status(*, session: Session = Depends(get_session), status: int):
+    return data_view_crud.get_sensors_by_status(session, status)

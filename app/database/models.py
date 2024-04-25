@@ -10,3 +10,10 @@ class SensorWithTemperatures(SQLModel):
     status: int
     temperatures: List[Decimal]
     timestamps: List[datetime]
+
+class SectionsSensors(SQLModel):
+    id: int
+    status: int
+    temperature: Decimal
+    timestamp: datetime
+
