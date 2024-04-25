@@ -15,7 +15,6 @@ from typing import Optional
 
 class SensorBase(SQLModel):
     section: str
-    status: int
 
 class SensorDB(SensorBase, table=True):
     id: int = Field(default=None, primary_key=True)

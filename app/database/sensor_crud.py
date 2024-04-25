@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from .schemas import SensorDB, SensorCreate, TemperatureDB  # , SectionEnums
 from sqlmodel import Session, select
 
@@ -18,7 +19,13 @@ def get_sections_sensors(session: Session, section):
 def get_sensor(session: Session, id: int):
     return session.get(SensorDB, id)
 
-# def update_sensor_status
+def update_sensor_status(session: Session, id: int, status: int):
+    sensor = session.get(SensorDB, id)
+    if not sensor:
+        raise HTTPException(status_code=404, detail=f'Sensor with id {id} not found from database.')
+    sensor.status = status
+    session.commit()
+    return sensor
 
 # list sensor updates
 
