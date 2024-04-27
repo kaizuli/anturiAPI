@@ -16,12 +16,6 @@ Hallinnalliset toimet ovat:
 ### Create Sensor
 Luo uusi anturi antamalla tiedot lohkosta ja statuksesta. Status 1 on aktiivinen (oletus) ja 0 on virhetilassa.
 
-### List Sensors
-Listaa kaikki sensorit ja niiden tiedot.
-
-### Get Sensor With Temps
-Listaa tietyn sensorin lämpötila-arvot ja mittausten päivämäärät viimeisimmästä alkaen. Anturi haetaan ID:n perusteella ja valinnaisesti voidaan määritellä haettavien lämpötilojen määrä (oletus 10 kpl).
-
 ### Update Sensor Status
 Päivittää anturin tilan. Annetaan päivitettävän anturin ID ja haluttaessa tila, johon päivitetään (oletus 1).
 
@@ -34,3 +28,16 @@ Lämpötilojen luomista varten. Testausvaiheessa lämpötilat luodaan manuaalise
 ### Delete Temp
 Poistaa yksittäisen lämpötilamittauksen ID:n perusteella.
 
+Dataa esittävät toimet:
+
+### List Sensors
+Listaa kaikki sensorit ja niiden tiedot.
+
+### Get Sensor With Temps
+Listaa tietyn sensorin lämpötila-arvot ja mittausten päivämäärät viimeisimmästä alkaen. Anturi haetaan ID:n perusteella ja valinnaisesti voidaan määritellä haettavien lämpötilojen määrä (oletus 10 kpl).
+
+### List Sensors By Status
+Listaa kaikki anturit, joilla on tietty status. Syötteeksi annetaan status, jota antureilta haetaan.
+
+### List Sensors By Section
+Listaa kaikki tietyn lohkon anturit. Syötteeksi annetaan lohko, jonka antureita haetaan.
