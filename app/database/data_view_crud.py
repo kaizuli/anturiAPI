@@ -7,11 +7,9 @@ def get_sensors(session: Session):
 def get_sensor(session: Session, id: int):
     return session.get(SensorDB, id)
 
-def get_sections_sensors(session: Session, section):
-    sensors = session.exec(select(SensorDB)
-                           .filter_by(section=section)
-                           ).all()
-    pass
+def get_sections_sensors(session: Session, section: str):
+    return session.exec(select(SensorDB)
+                        .filter_by(section=section)).all()
 
 def get_sensors_by_status(session: Session, status: int):
     return session.exec(select(SensorDB)

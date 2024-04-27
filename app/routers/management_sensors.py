@@ -12,15 +12,15 @@ def create_sensor(*, session: Session = Depends(get_session), sensor_in: SensorC
     return {'message': f'Sensor with id {sensor.id} created'}
 
 @router.patch('/{id}/status', status_code=status.HTTP_200_OK)
-def update_sensor_status(*, session: Session = Depends(get_session), sensor_id: int, status: int = 1):
-    sensor = sensor_management_crud.update_sensor_status(session, sensor_id, status)
+def update_sensor_status(*, session: Session = Depends(get_session), sensor_id: int, new_status: int = 1):
+    sensor = sensor_management_crud.update_sensor_status(session, sensor_id, new_status)
     if not sensor:
         raise HTTPException(status_code=404, detail=f'Sensor with id {sensor_id} not found.')
-    return {'message': f'Sensor with id {sensor_id} status updated to {status}'}
+    return {'message': f'Sensor with id {sensor_id} status updated to {new_status}'}
 
 @router.patch('/{id}/section', status_code=status.HTTP_200_OK)
-def update_sensor_section(*, session: Session = Depends(get_session), sensor_id: int, section: str):
-    sensor = sensor_management_crud.update_sensor_section(session, sensor_id, section)
+def update_sensor_section(*, session: Session = Depends(get_session), sensor_id: int, new_section: str):
+    sensor = sensor_management_crud.update_sensor_section(session, sensor_id, new_section)
     if not sensor:
         raise HTTPException(status_code=404, detail=f'Sensor with id {sensor_id} not found.')
-    return {'message': f'Sensor with id {sensor_id} section updated to {section}'}
+    return {'message': f'Sensor with id {sensor_id} section updated to {new_section}'}

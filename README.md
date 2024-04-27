@@ -11,6 +11,7 @@ uvicorn app.main --reload
 Siirry selaimessa promptin osoittamaan osoitteeseen. Lisää osoitteen perään _/docs#_ ja pääset käyttämään ohjelmaa rajapinnan kautta.
 
 Ohjelmassa on hallinnallisia ja dataa esittäviä toimia.
+
 Hallinnalliset toimet ovat:
 
 ### Create Sensor
@@ -34,7 +35,7 @@ Dataa esittävät toimet:
 Listaa kaikki sensorit ja niiden tiedot.
 
 ### Get Sensor With Temps
-Listaa tietyn sensorin lämpötila-arvot ja mittausten päivämäärät viimeisimmästä alkaen. Anturi haetaan ID:n perusteella ja valinnaisesti voidaan määritellä haettavien lämpötilojen määrä (oletus 10 kpl).
+Listaa tietyn sensorin lämpötila-arvot ja mittausten päivämäärät viimeisimmästä alkaen. Anturi haetaan ID:n perusteella ja valinnaisesti voidaan määritellä haettavien lämpötilojen määrä (oletus 10 kpl). Lisäksi lämpötila-arvoja voi suodattaa mittaamisajan mukaan. Suodattimet ovat vapaaehtoisia, ja niistä voi käyttää halutessaan vain toista.
 
 ### List Sensors By Status
 Listaa kaikki anturit, joilla on tietty status. Syötteeksi annetaan status, jota antureilta haetaan.
